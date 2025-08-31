@@ -1,4 +1,5 @@
 import yaml
+import argparse
 from pathlib import Path
 from .core import AgentConfig, ExecutionContext
 from .execution import create_local_python_executor
@@ -8,7 +9,11 @@ from .models import create_openai_model
 from jinja2 import Template
 
 if __name__ == "__main__":
-    task = "How many seconds would it take for a leopard at full speed to run through Pont des Arts?"
+    parser = argparse.ArgumentParser(description="Run a smolleragent task")
+    parser.add_argument("task", help="The task for the agent to perform")
+    args = parser.parse_args()
+    
+    task = args.task
     config = AgentConfig()
     tools = create_basic_tools()
 
@@ -41,7 +46,9 @@ if __name__ == "__main__":
     MAX_STEPS = 20000
     for _ in range(MAX_STEPS):
         response, ctx = generate_action(ctx)
+        print(response)
         action, ctx = parse_action(response, ctx)
         result, ctx = execute_action(action, ctx)
+        print(result.observations)
         if result.is_final:
             break
