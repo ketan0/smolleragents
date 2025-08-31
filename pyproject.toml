@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smolleragents"
+version = "0.1.0"
+description = "A functional approach to building AI agents with tool capabilities"
+authors = [
+    {name = "Ketan Agrawal", email = "your.email@example.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "openai>=1.0.0",
+    "anthropic>=0.21.0",
+    "jinja2>=3.0.0",
+    "pyyaml>=6.0",
+    "dataclasses-json>=0.5.0",
+    "requests>=2.25.0",
+    "markdownify>=0.11.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+smolleragents = "smolleragents.main:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/smolleragents"
+Repository = "https://github.com/yourusername/smolleragents"
+Issues = "https://github.com/yourusername/smolleragents/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["smolleragents*"]
+
+[tool.setuptools.package-data]
+smolleragents = ["*.yaml", "*.yml"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

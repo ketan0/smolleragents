@@ -8,7 +8,8 @@ from .tools import create_basic_tools
 from .models import create_openai_model
 from jinja2 import Template
 
-if __name__ == "__main__":
+def main():
+    """Main entry point for the smolleragents CLI."""
     parser = argparse.ArgumentParser(description="Run a smolleragent task")
     parser.add_argument("task", help="The task for the agent to perform")
     args = parser.parse_args()
@@ -46,9 +47,13 @@ if __name__ == "__main__":
     MAX_STEPS = 20000
     for _ in range(MAX_STEPS):
         response, ctx = generate_action(ctx)
-        print(response)
+        print(response.content)
         action, ctx = parse_action(response, ctx)
         result, ctx = execute_action(action, ctx)
         print(result.observations)
         if result.is_final:
             break
+
+
+if __name__ == "__main__":
+    main()
